@@ -1049,5 +1049,33 @@ div.cbi-tab-descr {
 	border: none;
 }
 
-
+@media screen and (max-width: 768px) {
+	body {
+		font-size: 14px;
+	}
+	#maincontainer {
+		width: 100%;
+		margin: 0;
+	}
+	#maincontent {
+		padding: 8px;
+	}
+	.cbi-value-title {
+		width: 35%;
+	}
+	div.cbi-value-field {
+		width: 60%;
+		margin-left: 35%;
+	}
+	select, input[type=text], input[type=password] {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+	}
+	div.hostinfo {
+		font-size: 10px;
+	}
+	#xhr_poll_status {
+		display: none !important;
+	}
 }

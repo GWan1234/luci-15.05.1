@@ -97,6 +97,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
 <link rel="stylesheet" type="text/css" media="screen" href="<%=media%>/cascade.css" />
 <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="<%=media%>/ie6.css" /><![endif]-->
 <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<%=media%>/ie7.css" /><![endif]-->
@@ -111,6 +114,65 @@
 <title><%=striptags( (boardinfo.hostname or "?") .. ( (node and node.title) and ' - ' .. translate(node.title) or '')) %> - LuCI</title>
 </head>
 <body class="lang_<%=luci.i18n.context.lang%>">
+
+<button type="button" id="mobile-menu-toggle" aria-label="Toggle menu" style="display:none; position:fixed; bottom:20px; right:20px; z-index:1000; background:#3f51b5; color:white; border:none; border-radius:50%; width:50px; height:50px; font-size:24px; box-shadow:0 2px 10px rgba(0,0,0,0.3); cursor:pointer;">☰</button>
+
+<script type="text/javascript">
+(function() {
+    var toggle = document.getElementById('mobile-menu-toggle');
+    if (!toggle) return;
+    
+    function checkMobile() {
+        if (window.innerWidth <= 768) {
+            toggle.style.display = 'block';
+        } else {
+            toggle.style.display = 'none';
+            var modemenu = document.getElementById('modemenu');
+            var savemenu = document.getElementById('savemenu');
+            var tabmenu = document.getElementById('tabmenu');
+            if (modemenu) modemenu.style.display = '';
+            if (savemenu) savemenu.style.display = '';
+            if (tabmenu) tabmenu.style.display = '';
+        }
+    }
+    
+    var modemenu = document.getElementById('modemenu');
+    var savemenu = document.getElementById('savemenu');
+    var tabmenu = document.getElementById('tabmenu');
+    var menuVisible = true;
+    
+    function updateMenuDisplay() {
+        if (window.innerWidth <= 768) {
+            if (modemenu) modemenu.style.display = menuVisible ? '' : 'none';
+            if (savemenu) savemenu.style.display = menuVisible ? '' : 'none';
+            if (tabmenu) tabmenu.style.display = menuVisible ? '' : 'none';
+        } else {
+            if (modemenu) modemenu.style.display = '';
+            if (savemenu) savemenu.style.display = '';
+            if (tabmenu) tabmenu.style.display = '';
+        }
+    }
+    
+    toggle.onclick = function(e) {
+        e.stopPropagation();
+        menuVisible = !menuVisible;
+        updateMenuDisplay();
+        toggle.innerHTML = menuVisible ? '✕' : '☰';
+        setTimeout(function() { toggle.innerHTML = menuVisible ? '✕' : '☰'; }, 200);
+    };
+    
+    window.addEventListener('resize', function() {
+        checkMobile();
+        if (window.innerWidth > 768) {
+            menuVisible = true;
+            updateMenuDisplay();
+        }
+    });
+    
+    checkMobile();
+    updateMenuDisplay();
+})();
+</script>
 
 <p class="skiplink">
 <span id="skiplink1"><a href="#navigation"><%:Skip to navigation%></a></span>
