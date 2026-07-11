@@ -989,8 +989,13 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	time_zone = s:taboption("encryption", Value, "time_zone",
 	translate("time zone"), translate("Local time zone as specified in 8.3 of IEEE Std 1003.1-2004"))
 	time_zone:depends({time_advertisement="2"})
-	time_zone.placeholder = "UTC8"
+	time_zone.placeholder = "CST-8"
 	time_zone.rmempty = true
+
+	proxy_arp = s:taboption("encryption", Flag, "proxy_arp", translate("Proxy ARP"),
+		translate("802.11v: Proxy ARP allows non-AP STA to stay in power-save longer."))
+	proxy_arp:depends({ieee80211v="1"})
+	proxy_arp.rmempty = true
 	-- End of 802.11v options
 
 	-- Probe 802.11r support (and EAP support as a proxy for Openwrt)

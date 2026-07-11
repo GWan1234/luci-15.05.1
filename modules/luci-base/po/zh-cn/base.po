@@ -3249,6 +3249,15 @@ msgstr "BSS 传输管理"
 msgid "Time advertisement"
 msgstr "广播同步时间"
 
+msgid "802.11v: Time advertisement in management frames."
+msgstr "802.11v: 管理帧中的时间广播。"
+
+msgid "Proxy ARP"
+msgstr "代理 ARP"
+
+msgid "802.11v: Proxy ARP allows non-AP STA to stay in power-save longer."
+msgstr "802.11v: 代理 ARP 允许非 AP STA 在 power-save 中停留更长时间。"
+
 msgid "Enables fast roaming among access points that belong to the same Mobility Domain"
 msgstr "启用属于同一移动域接入点之间的快速漫游"
 
