@@ -1636,8 +1636,17 @@ function wifinet.bitrate(self)
 end
 
 function wifinet.channel(self)
-	return self.iwinfo.channel or self:ubus("dev", "config", "channel") or
-        (self:get("disabled") ~= "1" and tonumber(self:get("channel")))
+	local ch = self.iwinfo.channel
+	if ch == nil or ch == false then
+		ch = self:ubus("dev", "config", "channel")
+	end
+	if (ch == nil or ch == false) and self:get("disabled") ~= "1" then
+		local cfg = self:get("channel")
+		if cfg ~= nil and cfg ~= "" then
+			ch = tonumber(cfg)
+		end
+	end
+	return ch
 end
 
 function wifinet.signal(self)
